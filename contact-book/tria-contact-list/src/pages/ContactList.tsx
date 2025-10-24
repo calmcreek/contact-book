@@ -3,6 +3,7 @@ import axios from "axios";
 import type { Contact } from "../data/contacts";
 import SearchBar from "../components/SearchBar";
 import ContactCard from "../components/ContactCard";
+import AddContactForm from "../components/AddContactForm";
 
 const API_BASE = "/api";
 
@@ -27,29 +28,30 @@ const ContactsList: React.FC = () => {
     .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
-    <div className="min-h-screen bg-blue-50 flex justify-center items-start p-10">
-      {/* Centered container */}
-      <div className="w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
-          My Contacts
-        </h1>
+    <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-start py-10 px-4">
+      <h1 className="text-3xl font-bold text-blue-700 mb-6 text-center">
+        My Contacts
+      </h1>
 
-        <SearchBar value={search} onChange={setSearch} />
+      <SearchBar value={search} onChange={setSearch} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-          {filteredContacts.map((contact) => (
-            <div
-              key={contact.id}
-              className="flex justify-center border-2 border-gray-300 rounded-lg p-2 contact-card cursor-pointer"
-              onClick={() => setSelectedContact(contact)}
-            >
-              <ContactCard
-                contact={contact}
-                onCall={(phone) => alert(`Calling ${phone}... 📞`)}
-              />
-            </div>
-          ))}
-        </div>
+      <AddContactForm
+        onAdd={(newContact) => setContactList([newContact, ...contactList])}
+      />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6 w-full max-w-4xl">
+        {filteredContacts.map((contact) => (
+          <div
+            key={contact.id}
+            className="cursor-pointer contact-card border-2 border-gray-400 rounded-lg p-2 flex justify-center items-center hover:shadow-lg transition duration-200"
+            onClick={() => setSelectedContact(contact)}
+          >
+            <ContactCard
+              contact={contact}
+              onCall={(phone) => alert(`Calling ${phone}... 📞`)}
+            />
+          </div>
+        ))}
       </div>
 
       {/* Popup Modal */}

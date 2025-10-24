@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev-full":  "concurrently \"npm run dev-server\" \"npm run dev-frontend\"",
-    "dev": "vite",
+    "dev":  "concurrently \"npm run dev-server\" \"npm run dev-frontend\"",
+    "dev-frontend": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
