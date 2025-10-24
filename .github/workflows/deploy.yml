@@ -3,29 +3,42 @@ name: Deploy React App to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main   # Change if your default branch is different
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      # 1. Checkout the repo
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
+      # 2. Use Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
+      # 3. Navigate into the nested project folder
+      - name: Change Directory to tria-contact-list
+        run: cd contact-book/contact-book/tria-contact-list
 
-      - name: Build app
-        run: npm run build
+      # 4. Install dependencies
+      - name: Install Dependencies
+        run: |
+          cd contact-book/tria-contact-list
+          npm ci
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v7
+      # 5. Build the project
+      - name: Build
+        run: |
+          cd contact-book/tria-contact-list
+          npm run build
+
+      # 6. Deploy to GitHub Pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: contact-book/tria-contact-list/dist
