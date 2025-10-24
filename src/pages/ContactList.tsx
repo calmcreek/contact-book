@@ -7,6 +7,27 @@ import AddContactForm from "../components/AddContactForm";
 import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
 
+/* -------------------------------
+   ✅ Web-safe callNumber function
+-------------------------------- */
+export const callNumber = (phone: string) => {
+  if (!phone) {
+    alert("Phone number is not available");
+    return;
+  }
+
+  const telLink = `tel:${phone}`;
+
+  // Try to open the dialer
+  try {
+    // This works on mobile browsers
+    window.location.href = telLink;
+  } catch (err) {
+    console.error("Error while trying to call:", err);
+    alert("Your browser does not support calling.");
+  }
+};
+
 const ContactList: React.FC = () => {
   const [search, setSearch] = useState("");
   const [contactList, setContactList] = useState<Contact[]>(initialContacts);
@@ -98,18 +119,14 @@ const ContactList: React.FC = () => {
           >
             <button onClick={() => setSelectedContact(null)}>×</button>
             <div>
-              <h2 className="text-lg font-semibold">
-                {selectedContact.name}
-              </h2>
+              <h2 className="text-lg font-semibold">{selectedContact.name}</h2>
               <p className="text-gray-700">{selectedContact.phone}</p>
               <p className="text-gray-700">{selectedContact.email}</p>
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-2 mt-4">
                 <button
-                  onClick={() =>
-                    alert(`Calling ${selectedContact.phone}... 📞`)
-                  }
+                  onClick={() => callNumber(selectedContact.phone)}
                   className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
                 >
                   Call
