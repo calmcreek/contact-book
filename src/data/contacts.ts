@@ -1,4 +1,11 @@
-[
+export interface Contact {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export const contacts: Contact[] = [
   {
     "id": "1",
     "name": "Alice Johnson",
@@ -137,4 +144,4 @@
     "email": "wendy@mail.com",
     "phone": "555-012-3457"
   }
-]
+];
