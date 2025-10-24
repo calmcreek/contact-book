@@ -1,5 +1,5 @@
 
-Hosted at : https://github.com/calmcreek/contact-book
+Hosted at : https://calmcreek.github.io/contact-book/
 
 # contact-book
 1. View the list of contacts 
