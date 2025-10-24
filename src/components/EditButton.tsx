@@ -7,30 +7,78 @@ interface Props {
 }
 
 const EditButton: React.FC<Props> = ({ contact, onEdit }) => {
-  const [confirm, setConfirm] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [formData, setFormData] = useState({ ...contact });
   const [success, setSuccess] = useState(false);
 
-  const handleEdit = () => {
-    // Here you can show a form/modal to edit fields if needed
-    onEdit({ ...contact, name: contact.name + " (Edited)" }); // Example edit
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    // Update in parent state
+    onEdit(formData);
+
+    // Persist to localStorage
+    const storedContacts = localStorage.getItem("contacts");
+    if (storedContacts) {
+      const parsed: Contact[] = JSON.parse(storedContacts);
+      const updated = parsed.map((c) =>
+        c.id === formData.id ? formData : c
+      );
+      localStorage.setItem("contacts", JSON.stringify(updated));
+    }
+
+    setEditing(false);
     setSuccess(true);
-    setConfirm(false);
     setTimeout(() => setSuccess(false), 2000);
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "5px" }}>
       {success ? (
-        <span>Edited successfully ✅</span>
-      ) : confirm ? (
-        <div>
-          <p>Are you sure you want to edit {contact.name}?</p>
-          <button onClick={handleEdit} style={{ backgroundColor: "blue", color: "white", padding: "6px 12px", marginRight: "5px" }}>Yes</button>
-          <button onClick={() => setConfirm(false)} style={{ padding: "6px 12px" }}>No</button>
+        <span style={{ color: "green" }}>Edited successfully ✅</span>
+      ) : editing ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Name"
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Phone"
+          />
+          <div style={{ display: "flex", gap: "5px" }}>
+            <button
+              onClick={handleSave}
+              style={{ backgroundColor: "green", color: "white", padding: "6px 12px" }}
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setEditing(false)}
+              style={{ backgroundColor: "red", color: "white", padding: "6px 12px" }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       ) : (
         <button
-          onClick={() => setConfirm(true)}
+          onClick={() => setEditing(true)}
           style={{ backgroundColor: "blue", color: "white", padding: "6px 12px" }}
         >
           Edit

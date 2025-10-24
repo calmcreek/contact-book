@@ -1,4 +1,4 @@
-import { useState } from "react"; 
+import { useState, useEffect } from "react";  
 import { contacts as initialContacts } from "../data/contacts";
 import type { Contact } from "../data/contacts";
 import ContactCard from "../components/ContactCard";
@@ -18,9 +18,7 @@ export const callNumber = (phone: string) => {
 
   const telLink = `tel:${phone}`;
 
-  // Try to open the dialer
   try {
-    // This works on mobile browsers
     window.location.href = telLink;
   } catch (err) {
     console.error("Error while trying to call:", err);
@@ -30,16 +28,24 @@ export const callNumber = (phone: string) => {
 
 const ContactList: React.FC = () => {
   const [search, setSearch] = useState("");
-  const [contactList, setContactList] = useState<Contact[]>(initialContacts);
+  
+  // Initialize state from localStorage if available
+  const [contactList, setContactList] = useState<Contact[]>(() => {
+    const saved = localStorage.getItem("contacts");
+    return saved ? JSON.parse(saved) : initialContacts;
+  });
+
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+
+  // Update localStorage whenever contacts change
+  const updateContacts = (newList: Contact[]) => {
+    setContactList(newList);
+    localStorage.setItem("contacts", JSON.stringify(newList));
+  };
 
   const handleAddContact = (newContact: Contact) => {
     const updatedList = [newContact, ...contactList];
-    setContactList(updatedList);
-  };
-
-  const updateContacts = (newList: Contact[]) => {
-    setContactList(newList);
+    updateContacts(updatedList);
   };
 
   const filteredContacts = contactList
@@ -54,20 +60,14 @@ const ContactList: React.FC = () => {
       {/* Phone Frame */}
       <div
         className="bg-black rounded-3xl w-[360px] h-[720px] p-4 flex flex-col"
-        style={{
-          border: "2px solid white",
-          borderRadius: "8px",
-          padding: "20px",
-        }}
+        style={{ border: "2px solid white", borderRadius: "8px", padding: "20px" }}
       >
         {/* Speaker */}
         <div className="w-24 h-1 bg-gray-700 rounded-full mx-auto mt-2"></div>
 
         {/* Screen */}
         <div className="bg-gray-100 rounded-2xl mt-3 flex flex-col w-full h-full overflow-auto p-4">
-          <h1 className="text-xl font-bold text-center text-gray-800">
-            Contacts
-          </h1>
+          <h1 className="text-xl font-bold text-center text-gray-800">Contacts</h1>
 
           {/* Search */}
           <div className="mt-3">
@@ -132,26 +132,20 @@ const ContactList: React.FC = () => {
                   Call
                 </button>
                 <button
-                  onClick={() =>
-                    (window.location.href = `mailto:${selectedContact.email}`)
-                  }
+                  onClick={() => (window.location.href = `mailto:${selectedContact.email}`)}
                   className="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600"
                 >
                   Mail
                 </button>
                 <DeleteButton
                   contact={selectedContact}
-                  onDelete={(id) =>
-                    updateContacts(contactList.filter((c) => c.id !== id))
-                  }
+                  onDelete={(id) => updateContacts(contactList.filter((c) => c.id !== id))}
                 />
                 <EditButton
                   contact={selectedContact}
                   onEdit={(updatedContact) =>
                     updateContacts(
-                      contactList.map((c) =>
-                        c.id === updatedContact.id ? updatedContact : c
-                      )
+                      contactList.map((c) => (c.id === updatedContact.id ? updatedContact : c))
                     )
                   }
                 />

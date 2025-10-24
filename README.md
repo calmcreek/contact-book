@@ -1,28 +1,40 @@
+# Contact Book
 
-Hosted at : https://calmcreek.github.io/contact-book/
+Hosted at: [https://calmcreek.github.io/contact-book/](https://calmcreek.github.io/contact-book/)
 
-# contact-book
-1. View the list of contacts 
-2. Search contact by name by passing name of contact in search bar 
-3. Ability to add a new contact in the list
+A simple React web app for managing contacts, built with TypeScript and Tailwind CSS.
 
-# Tria Contact List
+---
+**Special Feature: Allows real time calling. When the call button is clicked on android/ios mobile** 
+**the button takes you to your mobile phone to call that person, leaving their number on your dailpad**
+ 
+## 📝 Features
 
-A simple React contact list web app built as part of the Tria Frontend Assignment.
+- **View Contacts**: Display all contacts in a scrollable phone-style interface.  
+- **Search Contacts**: Filter contacts by name in real-time using the search bar.  
+- **Add Contacts**: Add new contacts dynamically to the list.  
+- **Contact Details Popup**: Click on a contact to view detailed information including phone and email.  
+- **Call & Email Actions**:  
+  - **Call**: Opens the dialer on mobile devices.  
+  - **Email**: Opens the default mail client with the contact's email.  
+- **Edit Contacts**: Modify contact details directly from the popup.  
+- **Delete Contacts**: Remove contacts from the list dynamically.  
+- **Responsive Design**: Phone-frame UI that works well on both desktop and mobile screens.  
 
-## 🚀 Features
-- View all contacts
-- Search contacts by name
-- Add new contacts (optional)
-- Responsive UI with Tailwind CSS
+---
 
 ## 🛠️ Tech Stack
-- React (Vite)
-- Tailwind CSS
-- Axios (optional for API calls)
+
+- React (with TypeScript)  
+- Tailwind CSS for styling  
+- Vite for bundling  
+
+---
 
 ## ⚙️ Setup
-```bash
-npm install
-npm run dev
 
+1. Clone the repository:
+
+```bash
+git clone https://github.com/calmcreek/contact-book.git
+cd contact-book
