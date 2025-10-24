@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/components/AddContactForm.tsx","./src/components/ContactCard.tsx","./src/components/DeleteButton.tsx","./src/components/EditButton.tsx","./src/components/SearchBar.tsx","./src/data/contacts.ts","./src/pages/ContactList.tsx"],"version":"5.9.3"}

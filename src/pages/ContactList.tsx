@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";  
+import { useState } from "react";  
 import { contacts as initialContacts } from "../data/contacts";
 import type { Contact } from "../data/contacts";
 import ContactCard from "../components/ContactCard";

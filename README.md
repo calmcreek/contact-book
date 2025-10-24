@@ -1,13 +1,13 @@
 # Contact Book
 
-Hosted at: [https://calmcreek.github.io/contact-book/](https://calmcreek.github.io/contact-book/)
+Hosted at: [https://calmcreek.github.io/contact-book/]
 
 A simple React web app for managing contacts, built with TypeScript and Tailwind CSS.
 
 ---
 **Special Feature: Allows real time calling. When the call button is clicked on android/ios mobile** 
 **the button takes you to your mobile phone to call that person, leaving their number on your dailpad**
- 
+
 ## 📝 Features
 
 - **View Contacts**: Display all contacts in a scrollable phone-style interface.  
@@ -20,7 +20,8 @@ A simple React web app for managing contacts, built with TypeScript and Tailwind
 - **Edit Contacts**: Modify contact details directly from the popup.  
 - **Delete Contacts**: Remove contacts from the list dynamically.  
 - **Responsive Design**: Phone-frame UI that works well on both desktop and mobile screens.  
-
+Although the features are stored locally/internally (not in a standard databse)
+But still on reloads, the data works efficiently during delete/edit features.
 ---
 
 ## 🛠️ Tech Stack
