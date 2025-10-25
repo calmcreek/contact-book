@@ -5,6 +5,22 @@ export interface Contact {
   phone: string;
 }
 
+export const callNumber = (phone: string) => {
+  if (!phone) {
+    alert("Phone number is not available");
+    return;
+  }
+
+  const telLink = `tel:${phone}`;
+
+  try {
+    window.location.href = telLink;
+  } catch (err) {
+    console.error("Error while trying to call:", err);
+    alert("Your browser does not support calling.");
+  }
+};
+
 export const contacts: Contact[] = [
   {
     "id": "1",

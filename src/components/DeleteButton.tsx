@@ -18,7 +18,7 @@ const DeleteButton: React.FC<Props> = ({ contact, onDelete }) => {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: "5px" }}>
       {success ? (
         <span>Deleted successfully ✅</span>
       ) : confirm ? (
